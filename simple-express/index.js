@@ -1,17 +1,13 @@
+require('dotenv').config()
 const express = require('express');
+const { Groceries } = require('./models/groceries');
 const app = express();
 const port = 3000;
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
-app.get('/shopping-list', (req, res) =>{
-  const groceries = [
-    'Milk',
-    'Eggs',
-    'Bread',
-    'Butter',
-    'Cereal',
-  ];
+app.get('/shopping-list', async (req, res) => {
+  const groceries = await Groceries.fetchAll();
   res.json(groceries);
 });
 
